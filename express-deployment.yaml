@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: express-api-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: express-api
+  template:
+    metadata:
+      labels:
+        app: express-api
+    spec:
+      containers:
+        - name: express-api
+          image: express-api
+          imagePullPolicy: Never
+          env:
+            - name: DB_HOST
+              value: "mysql-service"
+            - name: DB_USER
+              value: root
+            - name: DB_PASSWORD
+              value: rootpassword
+            - name: DB_NAME
+              value: testdb
+          ports:
+            - containerPort: 3000
