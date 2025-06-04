@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: express-api
-          image: express-api
+          image: kube-full-stack-express-api:latest
           imagePullPolicy: Never
           env:
             - name: DB_HOST
@@ -25,5 +25,13 @@ spec:
               value: rootpassword
             - name: DB_NAME
               value: testdb
+            - name: PG_DB_HOST
+              value: "pgsql-service"
+            - name: PG_DB_USER
+              value: mypguser
+            - name: PG_DB_PASSWORD
+              value: mypgpassword
+            - name: PG_DB_NAME
+              value: mypgdatabase
           ports:
             - containerPort: 3000

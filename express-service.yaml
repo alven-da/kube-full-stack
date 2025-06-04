@@ -3,10 +3,12 @@ kind: Service
 metadata:
   name: express-api-service
 spec:
-  type: LoadBalancer
+  #type: LoadBalancer
+  type: NodePort
   selector:
     app: express-api
   ports:
     - protocol: TCP
       port: 3000
       targetPort: 3000
+      nodePort: 32177
