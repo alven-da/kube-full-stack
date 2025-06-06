@@ -1,14 +1,18 @@
 apiVersion: v1
 kind: Service
 metadata:
-  name: express-api-service
+  name: api-svc
+  namespace: backend
 spec:
-  #type: LoadBalancer
-  type: NodePort
+  # type: LoadBalancer
+  # type: NodePort
+  # type: ExternalName
+  type: ClusterIP
+  # externalName: express.api.com
+  # clusterIP: 10.43.0.1
   selector:
     app: express-api
   ports:
-    - protocol: TCP
-      port: 3000
+    - port: 80
       targetPort: 3000
-      nodePort: 32177
+      # nodePort: 32177

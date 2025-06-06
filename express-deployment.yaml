@@ -1,9 +1,10 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: express-api-deployment
+  name: api-deployment
+  namespace: backend
 spec:
-  replicas: 1
+  replicas: 2
   selector:
     matchLabels:
       app: express-api
@@ -26,7 +27,7 @@ spec:
             - name: DB_NAME
               value: testdb
             - name: PG_DB_HOST
-              value: "pgsql-service"
+              value: pgsql-db.backend.svc.cluster.local
             - name: PG_DB_USER
               value: mypguser
             - name: PG_DB_PASSWORD

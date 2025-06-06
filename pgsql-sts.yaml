@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: pgsql-sts
+  namespace: backend
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: pgsql
+  template:
+    metadata:
+      labels:
+        app: pgsql
+    spec:
+      containers:
+        - name: pgsql-app-db
+          image: postgres:latest
+          imagePullPolicy: IfNotPresent
+          env:
+            - name: POSTGRES_USER
+              value: mypguser
+            - name: POSTGRES_PASSWORD
+              value: mypgpassword
+            - name: POSTGRES_DB
+              value: mypgdatabase
+          ports:
+            - containerPort: 5432
+          volumeMounts:
+            - name: pgsql-data
+              mountPath: /var/lib/postgresql/data
+      volumes:
+        - name: pgsql-data
+          persistentVolumeClaim:
+            claimName: pgsql-pvc

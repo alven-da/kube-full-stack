@@ -1,7 +1,7 @@
 apiVersion: apps/v1
-kind: Deployment
+kind: StatefulSet
 metadata:
-  name: mysql-deployment
+  name: mysql-sts
 spec:
   replicas: 1
   selector:
@@ -13,9 +13,8 @@ spec:
         app: mysql
     spec:
       containers:
-        - name: mysql
-          image: mysql-container:latest
-          imagePullPolicy: Never
+        - name: mysql-app-db
+          image: mysql:8.0.42
           env:
             - name: MYSQL_ROOT_PASSWORD
               value: rootpassword
